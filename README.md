@@ -183,7 +183,7 @@ When Azure OpenAI is not configured, every phase falls back to deterministic heu
 ### Install
 
 ```bash
-git clone https://github.com/<your-username>/noise-to-insight.git
+git clone https://github.com/Shirapti-nath/noise-to-insight.git
 cd noise-to-insight
 python3.11 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
@@ -197,7 +197,7 @@ pip install -e ".[dev]"
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/<your-username>/noise-to-insight.git
+git clone https://github.com/Shirapti-nath/noise-to-insight.git
 cd noise-to-insight
 python3.11 -m venv .venv
 source .venv/bin/activate
