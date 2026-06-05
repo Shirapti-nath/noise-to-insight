@@ -12,12 +12,29 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
+import os
+
 import matplotlib.pyplot as plt
 import polars as pl
 import streamlit as st
 import streamlit.components.v1 as components
 
 from src.config import ARTIFACTS_DIR, DEMO_DIR, PROJECT_ROOT, get_settings
+
+
+def _bootstrap_streamlit_secrets() -> None:
+    """Map Streamlit Cloud secrets → env vars for Azure OpenAI (optional)."""
+    try:
+        for key in (
+            "AZURE_OPENAI_ENDPOINT",
+            "AZURE_OPENAI_API_KEY",
+            "AZURE_OPENAI_DEPLOYMENT",
+            "AZURE_OPENAI_API_VERSION",
+        ):
+            if key in st.secrets and not os.getenv(key):
+                os.environ[key] = str(st.secrets[key])
+    except Exception:
+        pass
 from src.orchestrator.graph import PHASE_ORDER, replay_golden_run, run_pipeline
 from src.phases.anomalies import load_anomalies
 from src.phases.forecast import load_forecast
@@ -593,6 +610,7 @@ def _show_results(artifact_dir: Path) -> None:
 
 
 def main() -> None:
+    _bootstrap_streamlit_secrets()
     st.set_page_config(page_title="Noise to Insight", page_icon="📊", layout="wide")
 
     st.title("AI Meets Data: From Noise to Insight")

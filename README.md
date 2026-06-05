@@ -273,7 +273,32 @@ Artifacts are written to `data/artifacts/<run_id>/`.
 
 ---
 
-## Streamlit demo
+## Live demo for judges (Streamlit Community Cloud)
+
+**Repository:** https://github.com/Shirapti-nath/noise-to-insight
+
+### Deploy in ~3 minutes (free, public URL)
+
+1. Open **[share.streamlit.io](https://share.streamlit.io)** and sign in with GitHub.
+2. Click **Create app** → select repo **`Shirapti-nath/noise-to-insight`**, branch **`main`**.
+3. Set **Main file path:** `app/streamlit_app.py`
+4. Click **Deploy**. First build takes 5–10 minutes (Prophet/sklearn install).
+5. Your public URL will look like:
+
+   **`https://noise-to-insight.streamlit.app`**  
+   (or `https://<app-name>-<account>.streamlit.app` if you choose a custom name)
+
+### Judge quick-start on the live app
+
+1. Select **Demo bundle** (or upload any CSV).
+2. Click **Run full pipeline** (LLM toggle off works without API keys).
+3. Open tabs: **Overview**, **Anomalies**, **Forecast**, **Graph**, **Report**.
+
+Optional: add Azure OpenAI keys in **App settings → Secrets** (see `.streamlit/secrets.toml.example`).
+
+---
+
+## Streamlit demo (local)
 
 Run from the **project root** (not from `app/`):
 
