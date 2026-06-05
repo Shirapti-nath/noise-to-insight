@@ -1,0 +1,4 @@
+sku;warehouse_id;qty
+WIDGET-A;WH-01;100
+WIDGET-B;WH-02;50
+WIDGET-C;WH-01;25

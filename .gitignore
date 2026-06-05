@@ -1,0 +1,36 @@
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Pipeline artifacts
+data/artifacts/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# Testing / tooling
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Matplotlib cache
+.matplotlib/

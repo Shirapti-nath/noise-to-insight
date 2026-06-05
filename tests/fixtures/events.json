@@ -1,0 +1,5 @@
+[
+  {"event_id": "E1", "sku": "WIDGET-A", "supplier_id": "SUP-9", "reason": "late shipment"},
+  {"event_id": "E2", "sku": "WIDGET-B", "supplier_id": "SUP-2", "reason": "damaged"},
+  {"event_id": "E3", "sku": "WIDGET-A", "supplier_id": "SUP-9", "reason": "delay"}
+]

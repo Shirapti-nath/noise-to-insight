@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <style>
+    @page { size: A4; margin: 2cm; }
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #0f172a !important;
+      background: #ffffff !important;
+      font-size: 11pt;
+      line-height: 1.5;
+    }
+    h1 { font-size: 22pt; margin: 0 0 4px; color: #1e3a8a; }
+    h2 {
+      font-size: 13pt;
+      margin: 24px 0 8px;
+      color: #1e40af;
+      border-bottom: 2px solid #dbeafe;
+      padding-bottom: 4px;
+    }
+    .meta { color: #64748b; font-size: 9pt; margin-bottom: 20px; }
+    .kpis {
+      display: flex;
+      gap: 12px;
+      margin: 16px 0 24px;
+    }
+    .kpi {
+      flex: 1;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    .kpi-value { font-size: 18pt; font-weight: 700; color: #1d4ed8; }
+    .kpi-label { font-size: 8pt; text-transform: uppercase; color: #64748b; }
+    .summary { background: #eff6ff; padding: 16px; border-radius: 8px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 9pt;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 8px;
+      text-align: left;
+      color: #0f172a !important;
+      background: #ffffff !important;
+    }
+    th { background: #f1f5f9 !important; color: #0f172a !important; }
+    td.severity-critical { color: #b91c1c !important; font-weight: 700; }
+    td.severity-high { color: #c2410c !important; font-weight: 600; }
+    td.severity-medium { color: #b45309 !important; }
+    .impact-high { color: #b91c1c !important; font-weight: 600; }
+    .impact-medium { color: #b45309 !important; }
+    .impact-low { color: #15803d !important; }
+    .chart {
+      margin: 12px 0;
+      text-align: center;
+    }
+    .chart img { max-width: 100%; height: auto; }
+    ul.actions { padding-left: 18px; }
+    ul.actions li { margin-bottom: 6px; }
+    .footer {
+      margin-top: 32px;
+      font-size: 8pt;
+      color: #94a3b8;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>{{ title }}</h1>
+  <p class="meta">{{ subtitle }} · Generated {{ generated_at }} · {{ team_name }}</p>
+
+  <div class="kpis">
+    {% for kpi in kpis %}
+    <div class="kpi">
+      <div class="kpi-value">{{ kpi.value }}</div>
+      <div class="kpi-label">{{ kpi.label }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h2>Executive Summary</h2>
+  <div class="summary">
+    <p>{{ executive_summary }}</p>
+  </div>
+
+  <h2>Top Insights</h2>
+  <table>
+    <thead>
+      <tr><th>Insight</th><th>Impact</th><th>Summary</th></tr>
+    </thead>
+    <tbody>
+      {% for insight in insights %}
+      <tr>
+        <td>{{ insight.title }}</td>
+        <td class="impact-{{ insight.impact or 'medium' }}">{{ insight.impact or 'medium' }}</td>
+        <td>{{ insight.summary }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Priority Anomalies</h2>
+  <table>
+    <thead>
+      <tr><th>Entity</th><th>Metric</th><th>Severity</th><th>Hypothesis</th></tr>
+    </thead>
+    <tbody>
+      {% for a in anomalies %}
+      <tr>
+        <td>{{ a.entity }}</td>
+        <td>{{ a.metric }}</td>
+        <td class="severity-{{ a.severity }}">{{ a.severity }}</td>
+        <td>{{ a.hypothesis or '—' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if forecast_section %}
+  <h2>Forecast Outlook</h2>
+  <p>{{ forecast_section.narrative }}</p>
+  {% if forecast_chart_uri %}
+  <div class="chart">
+    <img src="{{ forecast_chart_uri }}" alt="Forecast chart" />
+  </div>
+  {% endif %}
+  <ul class="actions">
+    {% for action in forecast_section.actions %}
+    <li><strong>{{ action.due_date }}</strong> — {{ action.action }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <h2>Recommended Actions</h2>
+  <ul class="actions">
+    {% for action in top_actions %}
+    <li>{{ action }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if graph_hubs %}
+  <h2>Knowledge Graph Hubs</h2>
+  <p>Central entities in the operational graph: {{ graph_hubs | join(', ') }}</p>
+  {% endif %}
+
+  <p class="footer">AI Meets Data: From Noise to Insight — Microsoft Build 2026 Hackathon</p>
+</body>
+</html>

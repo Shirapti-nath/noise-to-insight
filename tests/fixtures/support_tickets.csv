@@ -1,0 +1,6 @@
+ticket_id,supplier_id,sku,reason
+T-1,SUP-9,WIDGET-A,late shipment delayed in customs
+T-2,SUP-2,WIDGET-B,damaged packaging on arrival
+T-3,SUP-9,WIDGET-A,carrier delay at hub
+T-4,SUP-9,WIDGET-A,urgent escalation warehouse fire all stock destroyed immediate halt
+T-5,SUP-1,WIDGET-C,standard restock request
